@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Golden Arrows Dataset V3.0 Mission Schema",
+  "description": "Schema for the mission metadata object embedded in each processed Golden Arrows Dataset V3.0 transition record.",
+  "type": "object",
+  "properties": {
+    "mission_id": {
+      "type": "string",
+      "description": "Mission identifier, such as PATROL-020260917."
+    },
+    "mission_type": {
+      "type": "string",
+      "enum": [
+        "PATROL",
+        "SURVEILLANCE",
+        "SEARCH",
+        "RECOVERY"
+      ],
+      "description": "Mission family represented in the released dataset."
+    },
+    "seed": {
+      "type": "integer",
+      "description": "Integer seed associated with the mission."
+    },
+    "behaviour": {
+      "type": "string",
+      "description": "Behavior label recorded for the mission state in the transition log. The field name is intentionally spelled behaviour as it appears in the dataset."
+    },
+    "status": {
+      "type": "string",
+      "description": "Mission status at the logged transition, such as RUNNING or COMPLETE."
+    },
+    "progress": {
+      "type": "number",
+      "description": "Numeric mission progress value recorded for the transition."
+    },
+    "current_waypoint": {
+      "type": "integer",
+      "description": "Current waypoint index for the mission at the logged transition."
+    },
+    "total_waypoints": {
+      "type": "integer",
+      "description": "Total waypoint count defined for the mission."
+    },
+    "target": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/coordinate2",
+          "description": "Two-dimensional mission target coordinate expressed as [x, y]."
+        },
+        {
+          "type": "null",
+          "description": "Null when the mission target is not defined for the logged transition."
+        }
+      ]
+    }
+  },
+  "required": [
+    "mission_id",
+    "mission_type",
+    "seed",
+    "behaviour",
+    "status",
+    "progress",
+    "current_waypoint",
+    "total_waypoints",
+    "target"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "coordinate2": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 2,
+      "maxItems": 2,
+      "description": "Two-dimensional numeric coordinate expressed as [x, y]."
+    }
+  }
+}

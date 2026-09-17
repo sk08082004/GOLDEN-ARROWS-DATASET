@@ -1,0 +1,237 @@
+﻿Golden Arrows Dataset V3.0
+Validation Report
+
+Dataset: Golden Arrows Dataset V3.0
+Schema: golden_arrows_v3_rich_transition_1.0
+Validation scope: Released V3.0 dataset
+Validation date: 2026-09-17
+
+This report validates the actual released V3.0 dataset under datasetv3_final against the expected structure, mission distribution, schema integrity, behavioral telemetry, transition cardinality, and mission completion status.
+
+No model-performance validation is included. This report validates dataset structure and integrity only.
+
+Validation summary
+
+Check                         Result
+---------------------------------------------------------------
+File integrity                PASS
+Mission count                 PASS
+Mission balance               PASS
+Transition count              PASS
+Drone cardinality             PASS
+Schema consistency            PASS
+Mission schema                PASS
+Behavior schema               PASS
+Decision/action consistency   PASS
+Numerical integrity           PASS
+Mission completion            PASS
+Duplicate checks              PASS
+Raw/processed consistency     PASS
+V2 exclusion                  PASS
+
+OVERALL VALIDATION RESULT: PASS
+
+1. FILE INTEGRITY
+
+- processed transition directory exists: PASS
+- raw mission directory exists: PASS
+- expected mission files exist: PASS (100 raw mission JSON files found)
+- processed transitions exist: PASS (100 JSONL files found)
+- every released mission has a processed JSONL file: PASS (100/100 matched)
+- raw mission files exist where expected: PASS
+- no empty transition files: PASS
+- no malformed JSONL records: PASS (0 invalid JSON records found)
+
+Supporting evidence:
+- raw mission files: 100
+- processed transition files: 100
+- raw mission IDs matched processed mission IDs: 100/100
+
+2. MISSION COUNT
+
+Total mission files validated: 100
+
+Mission breakdown:
+- PATROL: 25
+- SURVEILLANCE: 25
+- SEARCH: 25
+- RECOVERY: 25
+
+Mission ID uniqueness: PASS (100 unique mission IDs observed)
+
+3. TRANSITION COUNT
+
+Expected transitions: 11,570
+Actual transitions: 11,570
+Difference: 0
+
+Validation result: PASS
+
+4. DRONE CARDINALITY
+
+Expected drone-transition records: 11,570 x 30 = 347,100
+Actual drone-transition records: 347,100
+
+Detailed results:
+- transitions with exactly 30 drones: 11,570
+- transitions with incorrect drone count: 0
+- expected total drone-transition records: 347,100
+- actual total drone-transition records: 347,100
+
+Validation result: PASS
+
+5. SCHEMA CONSISTENCY
+
+Verified top-level transition fields:
+- schema_version
+- mission
+- transition
+- decision
+- action
+- result
+- network
+- swarm
+
+Observed schema_version value:
+- golden_arrows_v3_rich_transition_1.0
+
+Records matching the V3 schema identifier: 11,570 / 11,570
+
+Validation result: PASS
+
+6. MISSION SCHEMA
+
+Mission object checks validated on all 11,570 processed transitions.
+Required mission fields verified:
+- mission_id
+- mission_type
+- seed
+- behaviour
+- status
+- progress
+- current_waypoint
+- total_waypoints
+- target
+
+Observed mission statuses in the released mission metadata: 100 COMPLETE
+
+Validation result: PASS
+
+7. BEHAVIOR SCHEMA
+
+Advanced Swarm Behavior is present throughout the released transitions.
+Verified behavior fields at the drone level:
+- current_position
+- current_velocity
+- desired_velocity
+- movement_vector
+- speed_scale
+- neighbor_count
+- minimum_neighbor_distance
+- formation_error
+- connectivity_risk
+- boundary_risk
+- behaviors
+
+Verified behavior components:
+- cohesion
+- alignment
+- separation
+- formation
+- target_attraction
+- network_preservation
+- boundary_avoidance
+
+Each behavior component includes x, y, weight, and magnitude keys.
+
+Coverage results:
+- drone records with behavior telemetry: 347,100 / 347,100
+- drone records missing behavior telemetry: 0
+- malformed behavior structures: 0
+
+This confirms Advanced Swarm Behavior telemetry is present across the released dataset, but it does not imply a trained RL policy or learned behavioral policy.
+
+Validation result: PASS
+
+8. DECISION / ACTION CONSISTENCY
+
+Verified policy representation:
+- SCRIPTED_MISSION_CONTROLLER+ADVANCED_SWARM_BEHAVIOR
+
+Verified behavior integration mode:
+- BOUNDED_CORRECTION_ON_MISSION_MOTION
+
+Observed coverage:
+- transitions with policy_type = SCRIPTED_MISSION_CONTROLLER+ADVANCED_SWARM_BEHAVIOR: 11,570 / 11,570
+- transitions with advanced_behavior_applied = true: 11,570 / 11,570
+- transitions with advanced_behavior_mode = BOUNDED_CORRECTION_ON_MISSION_MOTION: 11,570 / 11,570
+
+This is consistent with the scripted mission controller + advanced swarm behavior design and should not be interpreted as learned RL actions.
+
+Validation result: PASS
+
+9. NUMERICAL INTEGRITY
+
+Numeric checks performed for the behavioral and state-related values associated with the released transition records.
+
+Results:
+- non-finite values found: 0
+- NaN values found: 0
+- infinity values found: 0
+- malformed non-numeric values in numeric fields: 0
+
+Validation result: PASS
+
+10. MISSION COMPLETION
+
+Expected final public dataset: 100 completed missions.
+
+Observed mission completion:
+- completed: 100
+- incomplete: 0
+- failed/malformed: 0
+
+Validation result: PASS
+
+11. DUPLICATE / LEAKAGE CHECK
+
+Checks performed:
+- duplicate mission IDs: PASS (0 duplicates)
+- duplicate transition identifiers where identifiable: PASS (no persistent duplicate transition IDs were present as separate identifiers in the released JSONL format)
+- mission overlap between splits if ML-ready derivatives are present: not required for this validation scope; no claim of universal leakage absence is made
+
+Validation result: PASS
+
+12. RAW / PROCESSED CONSISTENCY
+
+The released raw mission set and processed transition set were checked for alignment.
+
+Observed results:
+- raw mission files: 100
+- processed transition files: 100
+- raw mission IDs matched processed mission IDs: 100/100
+
+This confirms the processed transitions correspond to the released mission set without inventing a one-to-one field mapping between raw and processed formats.
+
+Validation result: PASS
+
+13. V2 EXCLUSION
+
+Dataset V2 was not included in the public V3.0 validation scope.
+
+Observed result:
+- V2-related files/directories detected in the public V3.0 release directory: 0
+
+Validation result: PASS
+
+14. KNOWN LIMITATIONS
+
+The validation confirms structural integrity and schema compliance. It does not establish real-world flight validity, safety certification, or operational effectiveness.
+
+Temporal and methodological considerations are present in the released data, including the distinction between behavior proposal information and post-action state values. This is a methodological consideration for ML/RL users and not a dataset validation failure.
+
+15. FINAL RESULT
+
+OVERALL VALIDATION RESULT: PASS
+
+The released Golden Arrows Dataset V3.0 files under datasetv3_final satisfy the required validation checks for file integrity, mission count, mission balance, transition and drone cardinality, schema consistency, behavior telemetry coverage, policy consistency, numerical integrity, mission completion, duplicate checks, raw/processed consistency, and V2 exclusion.

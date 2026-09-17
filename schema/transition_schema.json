@@ -1,0 +1,650 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Golden Arrows Dataset V3.0 processed transition record",
+  "description": "JSON Schema describing the actual processed transition records used in the public Golden Arrows Dataset V3.0 release. Dataset schema identifier: golden_arrows_v3_rich_transition_1.0.",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "golden_arrows_v3_rich_transition_1.0",
+      "description": "Schema identifier for the released V3.0 processed transition records."
+    },
+    "mission": {
+      "$ref": "#/$defs/mission"
+    },
+    "transition": {
+      "$ref": "#/$defs/transition"
+    },
+    "decision": {
+      "$ref": "#/$defs/decision"
+    },
+    "action": {
+      "$ref": "#/$defs/action"
+    },
+    "result": {
+      "$ref": "#/$defs/result"
+    },
+    "network": {
+      "$ref": "#/$defs/network"
+    },
+    "swarm": {
+      "$ref": "#/$defs/swarm"
+    }
+  },
+  "required": [
+    "schema_version",
+    "mission",
+    "transition",
+    "decision",
+    "action",
+    "result",
+    "network",
+    "swarm"
+  ],
+  "additionalProperties": true,
+  "$defs": {
+    "coordinate2": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 2,
+      "maxItems": 2,
+      "description": "Two-dimensional coordinate expressed as [x, y]."
+    },
+    "taskAssignment": {
+      "type": "object",
+      "properties": {
+        "task_id": {
+          "type": "string"
+        },
+        "role": {
+          "type": ["string", "null"]
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "task_id",
+        "role",
+        "status"
+      ],
+      "additionalProperties": false
+    },
+    "taskDefinition": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "target": {
+          "$ref": "#/$defs/coordinate2"
+        },
+        "priority": {
+          "type": "number"
+        },
+        "required_role": {
+          "type": ["string", "null"]
+        },
+        "status": {
+          "type": "string"
+        },
+        "assigned_drone": {
+          "type": ["string", "null"]
+        }
+      },
+      "required": [
+        "type",
+        "target",
+        "priority",
+        "required_role",
+        "status",
+        "assigned_drone"
+      ],
+      "additionalProperties": false
+    },
+    "manager": {
+      "type": "object",
+      "properties": {
+        "roles": {
+          "type": "object",
+          "description": "Role-to-count mapping keyed by role labels.",
+          "additionalProperties": {
+            "type": "integer"
+          }
+        },
+        "assignments": {
+          "type": "object",
+          "description": "Assignment mapping keyed by drone_id.",
+          "additionalProperties": {
+            "$ref": "#/$defs/taskAssignment"
+          }
+        },
+        "tasks": {
+          "type": "object",
+          "description": "Task mapping keyed by task_id.",
+          "additionalProperties": {
+            "$ref": "#/$defs/taskDefinition"
+          }
+        },
+        "task_counts": {
+          "type": "object",
+          "description": "Task status counts keyed by status label.",
+          "additionalProperties": {
+            "type": "integer"
+          }
+        }
+      },
+      "required": [
+        "roles",
+        "assignments",
+        "tasks",
+        "task_counts"
+      ],
+      "additionalProperties": false
+    },
+    "mission": {
+      "type": "object",
+      "properties": {
+        "mission_id": {
+          "type": "string",
+          "description": "Mission identifier, e.g. PATROL-020260917."
+        },
+        "mission_type": {
+          "type": "string",
+          "enum": [
+            "PATROL",
+            "SURVEILLANCE",
+            "SEARCH",
+            "RECOVERY"
+          ],
+          "description": "Mission family represented in the released dataset."
+        },
+        "seed": {
+          "type": "integer",
+          "description": "Seed value associated with the mission."
+        },
+        "behaviour": {
+          "type": "string",
+          "description": "Behavior label associated with the mission state."
+        },
+        "status": {
+          "type": "string",
+          "description": "Mission status at the logged transition."
+        },
+        "progress": {
+          "type": "number",
+          "description": "Mission progress value for the current transition."
+        },
+        "current_waypoint": {
+          "type": "integer",
+          "description": "Current waypoint index in the mission trajectory."
+        },
+        "total_waypoints": {
+          "type": "integer",
+          "description": "Total waypoint count defined for the mission."
+        },
+        "target": {
+          "$ref": "#/$defs/coordinate2",
+          "description": "Mission target coordinate expressed as [x, y]."
+        }
+      },
+      "required": [
+        "mission_id",
+        "mission_type",
+        "seed",
+        "behaviour",
+        "status",
+        "progress",
+        "current_waypoint",
+        "total_waypoints",
+        "target"
+      ],
+      "additionalProperties": false
+    },
+    "transition": {
+      "type": "object",
+      "properties": {
+        "tick": {
+          "type": "integer",
+          "description": "Per-mission transition tick index."
+        },
+        "dt": {
+          "type": "number",
+          "description": "Simulation time step for the transition."
+        }
+      },
+      "required": [
+        "tick",
+        "dt"
+      ],
+      "additionalProperties": false
+    },
+    "decision": {
+      "type": "object",
+      "properties": {
+        "assignment_targets": {
+          "type": "object",
+          "description": "Drone target coordinates keyed by drone_id.",
+          "additionalProperties": {
+            "$ref": "#/$defs/coordinate2"
+          }
+        },
+        "manager": {
+          "$ref": "#/$defs/manager"
+        },
+        "policy_type": {
+          "type": "string",
+          "const": "SCRIPTED_MISSION_CONTROLLER+ADVANCED_SWARM_BEHAVIOR",
+          "description": "Policy representation in the released dataset."
+        }
+      },
+      "required": [
+        "assignment_targets",
+        "manager",
+        "policy_type"
+      ],
+      "additionalProperties": false
+    },
+    "action": {
+      "type": "object",
+      "properties": {
+        "mission_type": {
+          "type": "string",
+          "enum": [
+            "PATROL",
+            "SURVEILLANCE",
+            "SEARCH",
+            "RECOVERY"
+          ]
+        },
+        "action_type": {
+          "type": "string",
+          "description": "Action label emitted by the logged controller."
+        },
+        "target": {
+          "$ref": "#/$defs/coordinate2"
+        },
+        "advanced_behavior_applied": {
+          "type": "boolean"
+        },
+        "advanced_behavior_mode": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "mission_type",
+        "action_type",
+        "target",
+        "advanced_behavior_applied",
+        "advanced_behavior_mode"
+      ],
+      "additionalProperties": false
+    },
+    "result": {
+      "type": "object",
+      "properties": {
+        "mission_status_before": {
+          "type": "string"
+        },
+        "mission_status_after": {
+          "type": "string"
+        },
+        "progress_before": {
+          "type": "number"
+        },
+        "progress_after": {
+          "type": "number"
+        },
+        "connected_drones": {
+          "type": "integer"
+        },
+        "active_links": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "mission_status_before",
+        "mission_status_after",
+        "progress_before",
+        "progress_after",
+        "connected_drones",
+        "active_links"
+      ],
+      "additionalProperties": false
+    },
+    "network": {
+      "type": "object",
+      "properties": {
+        "total_drones": {
+          "type": "integer"
+        },
+        "connected_drones": {
+          "type": "integer"
+        },
+        "active_links": {
+          "type": "integer"
+        },
+        "recovery_links": {
+          "type": "integer"
+        },
+        "strong_links": {
+          "type": "integer"
+        },
+        "weak_links": {
+          "type": "integer"
+        },
+        "failed_links": {
+          "type": "integer"
+        },
+        "recovery_routes": {
+          "type": "integer"
+        },
+        "communication_range": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "total_drones",
+        "connected_drones",
+        "active_links",
+        "recovery_links",
+        "strong_links",
+        "weak_links",
+        "failed_links",
+        "recovery_routes",
+        "communication_range"
+      ],
+      "additionalProperties": false
+    },
+    "swarm": {
+      "type": "object",
+      "properties": {
+        "drone_count": {
+          "type": "integer",
+          "const": 30,
+          "description": "Number of drone records included in the transition swarm."
+        },
+        "drones": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/drone"
+          },
+          "minItems": 30,
+          "maxItems": 30,
+          "description": "30 drone state records for the transition."
+        }
+      },
+      "required": [
+        "drone_count",
+        "drones"
+      ],
+      "additionalProperties": false
+    },
+    "drone": {
+      "type": "object",
+      "properties": {
+        "drone_id": {
+          "type": "string"
+        },
+        "role": {
+          "type": ["string", "null"]
+        },
+        "assignment": {
+          "type": ["object", "null"],
+          "description": "Assignment descriptor for the drone when present; null when no assignment is active.",
+          "properties": {
+            "task_id": {
+              "type": "string"
+            },
+            "role": {
+              "type": ["string", "null"]
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "task_id",
+            "role",
+            "status"
+          ],
+          "additionalProperties": false
+        },
+        "task": {
+          "type": ["object", "null"],
+          "description": "Task definition for the drone when present; null when no task is assigned.",
+          "properties": {
+            "type": {
+              "type": "string"
+            },
+            "target": {
+              "$ref": "#/$defs/coordinate2"
+            },
+            "priority": {
+              "type": "number"
+            },
+            "required_role": {
+              "type": ["string", "null"]
+            },
+            "status": {
+              "type": "string"
+            },
+            "assigned_drone": {
+              "type": ["string", "null"]
+            }
+          },
+          "required": [
+            "type",
+            "target",
+            "priority",
+            "required_role",
+            "status",
+            "assigned_drone"
+          ],
+          "additionalProperties": false
+        },
+        "state_before": {
+          "$ref": "#/$defs/stateBefore"
+        },
+        "state_after": {
+          "$ref": "#/$defs/stateAfter"
+        },
+        "actual_movement": {
+          "$ref": "#/$defs/coordinate2"
+        },
+        "behavior": {
+          "$ref": "#/$defs/behavior"
+        }
+      },
+      "required": [
+        "drone_id",
+        "role",
+        "assignment",
+        "task",
+        "state_before",
+        "state_after",
+        "actual_movement",
+        "behavior"
+      ],
+      "additionalProperties": false
+    },
+    "stateBefore": {
+      "type": "object",
+      "properties": {
+        "position": {
+          "$ref": "#/$defs/coordinate2"
+        }
+      },
+      "required": [
+        "position"
+      ],
+      "additionalProperties": false
+    },
+    "stateAfter": {
+      "type": "object",
+      "properties": {
+        "drone_id": {
+          "type": "string"
+        },
+        "position": {
+          "$ref": "#/$defs/coordinate2"
+        },
+        "altitude": {
+          "type": "number"
+        },
+        "speed": {
+          "type": "number"
+        },
+        "direction": {
+          "$ref": "#/$defs/coordinate2"
+        },
+        "battery": {
+          "type": "number"
+        },
+        "connected": {
+          "type": "boolean"
+        },
+        "signal_strength": {
+          "type": "number"
+        },
+        "latency": {
+          "type": "number"
+        },
+        "packet_loss": {
+          "type": "number"
+        },
+        "health": {
+          "type": ["number", "null"]
+        }
+      },
+      "required": [
+        "drone_id",
+        "position",
+        "altitude",
+        "speed",
+        "direction",
+        "battery",
+        "connected",
+        "signal_strength",
+        "latency",
+        "packet_loss",
+        "health"
+      ],
+      "additionalProperties": false
+    },
+    "behavior": {
+      "type": "object",
+      "properties": {
+        "current_position": {
+          "$ref": "#/$defs/coordinate2"
+        },
+        "current_velocity": {
+          "$ref": "#/$defs/coordinate2"
+        },
+        "desired_velocity": {
+          "$ref": "#/$defs/coordinate2"
+        },
+        "movement_vector": {
+          "$ref": "#/$defs/coordinate2"
+        },
+        "speed_scale": {
+          "type": "number"
+        },
+        "neighbor_count": {
+          "type": "integer"
+        },
+        "minimum_neighbor_distance": {
+          "type": "number"
+        },
+        "formation_error": {
+          "type": "number"
+        },
+        "connectivity_risk": {
+          "type": "number"
+        },
+        "boundary_risk": {
+          "type": "number"
+        },
+        "behaviors": {
+          "$ref": "#/$defs/behaviorComponents"
+        }
+      },
+      "required": [
+        "current_position",
+        "current_velocity",
+        "desired_velocity",
+        "movement_vector",
+        "speed_scale",
+        "neighbor_count",
+        "minimum_neighbor_distance",
+        "formation_error",
+        "connectivity_risk",
+        "boundary_risk",
+        "behaviors"
+      ],
+      "additionalProperties": false
+    },
+    "behaviorComponents": {
+      "type": "object",
+      "properties": {
+        "cohesion": {
+          "$ref": "#/$defs/behaviorComponent"
+        },
+        "alignment": {
+          "$ref": "#/$defs/behaviorComponent"
+        },
+        "separation": {
+          "$ref": "#/$defs/behaviorComponent"
+        },
+        "formation": {
+          "$ref": "#/$defs/behaviorComponent"
+        },
+        "target_attraction": {
+          "$ref": "#/$defs/behaviorComponent"
+        },
+        "network_preservation": {
+          "$ref": "#/$defs/behaviorComponent"
+        },
+        "boundary_avoidance": {
+          "$ref": "#/$defs/behaviorComponent"
+        }
+      },
+      "required": [
+        "cohesion",
+        "alignment",
+        "separation",
+        "formation",
+        "target_attraction",
+        "network_preservation",
+        "boundary_avoidance"
+      ],
+      "additionalProperties": false
+    },
+    "behaviorComponent": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        },
+        "weight": {
+          "type": "number"
+        },
+        "magnitude": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "x",
+        "y",
+        "weight",
+        "magnitude"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

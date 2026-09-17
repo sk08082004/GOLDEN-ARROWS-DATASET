@@ -1,0 +1,547 @@
+{
+  "metadata": {
+    "dataset": "Golden Arrows Dataset V3.0",
+    "schema_version": "golden_arrows_v3_rich_transition_1.0",
+    "statistics_source": "datasetv3_final/processed/transitions",
+    "statistics_scope": "Released V3.0 dataset",
+    "calculation_note": "All statistics were calculated directly from processed transition JSONL records."
+  },
+  "dataset": {
+    "total_missions": 100,
+    "total_transitions": 11570,
+    "total_drone_transition_records": 347100,
+    "drones_per_transition": 30,
+    "mission_types": [
+      "PATROL",
+      "RECOVERY",
+      "SEARCH",
+      "SURVEILLANCE"
+    ],
+    "missions_per_mission_type": {
+      "PATROL": 25,
+      "RECOVERY": 25,
+      "SEARCH": 25,
+      "SURVEILLANCE": 25
+    },
+    "schema_version": "golden_arrows_v3_rich_transition_1.0",
+    "policy_type": "SCRIPTED_MISSION_CONTROLLER+ADVANCED_SWARM_BEHAVIOR",
+    "advanced_behavior_enabled": true,
+    "advanced_behavior_coverage": {
+      "total_drone_transition_records": 347100,
+      "records_with_behavior_telemetry": 347100,
+      "records_missing_behavior_telemetry": 0,
+      "coverage_percentage": 100.0
+    }
+  },
+  "mission_statistics": {
+    "total_missions": 100,
+    "mission_types": {
+      "PATROL": {
+        "mission_count": 25,
+        "transition_count": 6461,
+        "min_transitions_per_mission": 207,
+        "max_transitions_per_mission": 333,
+        "mean_transitions_per_mission": 258.44,
+        "median_transitions_per_mission": 260
+      },
+      "SURVEILLANCE": {
+        "mission_count": 25,
+        "transition_count": 2266,
+        "min_transitions_per_mission": 60,
+        "max_transitions_per_mission": 119,
+        "mean_transitions_per_mission": 90.64,
+        "median_transitions_per_mission": 91
+      },
+      "SEARCH": {
+        "mission_count": 25,
+        "transition_count": 1180,
+        "min_transitions_per_mission": 27,
+        "max_transitions_per_mission": 132,
+        "mean_transitions_per_mission": 47.2,
+        "median_transitions_per_mission": 37
+      },
+      "RECOVERY": {
+        "mission_count": 25,
+        "transition_count": 1663,
+        "min_transitions_per_mission": 17,
+        "max_transitions_per_mission": 162,
+        "mean_transitions_per_mission": 66.52,
+        "median_transitions_per_mission": 66
+      }
+    }
+  },
+  "transition_statistics": {
+    "total_transitions": 11570,
+    "transitions_by_mission_type": {
+      "PATROL": 6461,
+      "RECOVERY": 1663,
+      "SEARCH": 1180,
+      "SURVEILLANCE": 2266
+    },
+    "transitions_by_action_type": {
+      "PATROL_MOVE": 6461,
+      "RECOVERY_MOVE": 1663,
+      "SEARCH_MOVE": 1180,
+      "SURVEILLANCE_MOVE": 2266
+    },
+    "policy_representation_counts": {
+      "SCRIPTED_MISSION_CONTROLLER+ADVANCED_SWARM_BEHAVIOR": 11570
+    },
+    "advanced_behavior_mode_counts": {
+      "BOUNDED_CORRECTION_ON_MISSION_MOTION": 11570
+    },
+    "mission_status_counts": {
+      "RUNNING": 11470,
+      "COMPLETE": 100
+    },
+    "connected_drones_summary": {
+      "count": 11570,
+      "missing_count": 0,
+      "minimum": 27.0,
+      "maximum": 30.0,
+      "mean": 29.870613656006913,
+      "median": 30.0,
+      "standard_deviation": 0.45367115240443884,
+      "p95": 30.0
+    },
+    "active_links_summary": {
+      "count": 11570,
+      "missing_count": 0,
+      "minimum": 60.0,
+      "maximum": 435.0,
+      "mean": 285.2072601555748,
+      "median": 355.0,
+      "standard_deviation": 146.89823234015668,
+      "p95": 435.0
+    }
+  },
+  "drone_statistics": {
+    "total_drone_transition_records": 347100,
+    "fields": {
+      "battery": {
+        "count": 347100,
+        "missing_count": 0,
+        "minimum": 89.63440219623071,
+        "maximum": 100.0,
+        "mean": 97.42417718346574,
+        "median": 98.13557666364476,
+        "standard_deviation": 2.4063866860291085,
+        "p95": 100.0
+      },
+      "altitude": {
+        "count": 347100,
+        "missing_count": 0,
+        "minimum": 85.31438326620533,
+        "maximum": 222.446098624475,
+        "mean": 150.30508944039752,
+        "median": 150.63327423433094,
+        "standard_deviation": 29.5208222173824,
+        "p95": 195.94598916123186
+      },
+      "speed": {
+        "count": 347100,
+        "missing_count": 0,
+        "minimum": 10.000108959082723,
+        "maximum": 19.990272282131862,
+        "mean": 15.005132145519443,
+        "median": 15.079588593110632,
+        "standard_deviation": 2.8543213347942937,
+        "p95": 19.45190404075059
+      },
+      "signal_strength": {
+        "count": 347100,
+        "missing_count": 0,
+        "minimum": -75.0,
+        "maximum": -50.0,
+        "mean": -60.03576518387183,
+        "median": -59.9954979284754,
+        "standard_deviation": 3.7552422690714304,
+        "p95": -54.10074745112497
+      },
+      "latency": {
+        "count": 347100,
+        "missing_count": 0,
+        "minimum": 15.0,
+        "maximum": 60.0,
+        "mean": 30.120788242634443,
+        "median": 29.85756422400401,
+        "standard_deviation": 7.548988488393173,
+        "p95": 42.63052553716519
+      },
+      "packet_loss": {
+        "count": 347100,
+        "missing_count": 0,
+        "minimum": 0.0,
+        "maximum": 1.8568173154887613,
+        "mean": 0.31061922413351317,
+        "median": 0.27149088496685303,
+        "standard_deviation": 0.23605048167833903,
+        "p95": 0.7529083432517589
+      },
+      "neighbor_count": {
+        "count": 347100,
+        "missing_count": 0,
+        "minimum": 29.0,
+        "maximum": 29.0,
+        "mean": 29.0,
+        "median": 29.0,
+        "standard_deviation": 0.0,
+        "p95": 29.0
+      },
+      "minimum_neighbor_distance": {
+        "count": 347100,
+        "missing_count": 0,
+        "minimum": 0.00025332902642859765,
+        "maximum": 229.85626193567663,
+        "mean": 28.084672729825556,
+        "median": 18.315116053509584,
+        "standard_deviation": 25.48675844446257,
+        "p95": 80.37990314979716
+      },
+      "formation_error": {
+        "count": 347100,
+        "missing_count": 0,
+        "minimum": -42.0,
+        "maximum": 565.2104593034462,
+        "mean": 135.78585100171773,
+        "median": 114.23078510275683,
+        "standard_deviation": 126.73844170305692,
+        "p95": 369.8650897613883
+      },
+      "connectivity_risk": {
+        "count": 347100,
+        "missing_count": 0,
+        "minimum": 0.0,
+        "maximum": 0.9154688494639719,
+        "mean": 0.0011009702271176014,
+        "median": 0.0,
+        "standard_deviation": 0.017717208803251918,
+        "p95": 0.0
+      },
+      "boundary_risk": {
+        "count": 347100,
+        "missing_count": 0,
+        "minimum": 0.0,
+        "maximum": 0.998162501791089,
+        "mean": 0.01682867470193415,
+        "median": 0.0,
+        "standard_deviation": 0.09565840647651255,
+        "p95": 0.0
+      },
+      "speed_scale": {
+        "count": 347100,
+        "missing_count": 0,
+        "minimum": 1.0,
+        "maximum": 1.0,
+        "mean": 1.0,
+        "median": 1.0,
+        "standard_deviation": 0.0,
+        "p95": 1.0
+      }
+    }
+  },
+  "movement_statistics": {
+    "actual_movement": {
+      "count": 347100,
+      "missing_count": 0,
+      "minimum": 0.0,
+      "maximum": 12.470296408474054,
+      "mean": 4.3665711708830575,
+      "median": 5.354054987327316,
+      "standard_deviation": 3.5827756708688234,
+      "p95": 9.64620097331238
+    },
+    "behavior_movement_vector": {
+      "count": 347100,
+      "missing_count": 0,
+      "minimum": 1.9999999999999996,
+      "maximum": 2.0000000000000004,
+      "mean": 2.0,
+      "median": 2.0,
+      "standard_deviation": 1.7910642829994225e-16,
+      "p95": 2.0000000000000004
+    }
+  },
+  "behavior_statistics": {
+    "components": {
+      "cohesion": {
+        "magnitude": {
+          "count": 347100,
+          "missing_count": 0,
+          "minimum": 0.0,
+          "maximum": 1.0000000000000002,
+          "mean": 0.9979170267934313,
+          "median": 1.0,
+          "standard_deviation": 0.045592043485562575,
+          "p95": 1.0
+        },
+        "weight": {
+          "count": 347100,
+          "missing_count": 0,
+          "minimum": 1.0,
+          "maximum": 1.0,
+          "mean": 1.0,
+          "median": 1.0,
+          "standard_deviation": 0.0,
+          "p95": 1.0
+        }
+      },
+      "alignment": {
+        "magnitude": {
+          "count": 347100,
+          "missing_count": 0,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "standard_deviation": 0.0,
+          "p95": 0.0
+        },
+        "weight": {
+          "count": 347100,
+          "missing_count": 0,
+          "minimum": 0.7,
+          "maximum": 0.7,
+          "mean": 0.7,
+          "median": 0.7,
+          "standard_deviation": 0.0,
+          "p95": 0.7
+        }
+      },
+      "separation": {
+        "magnitude": {
+          "count": 347100,
+          "missing_count": 0,
+          "minimum": 0.0,
+          "maximum": 1.0000000000000002,
+          "mean": 0.7068510515701527,
+          "median": 1.0,
+          "standard_deviation": 0.455206153807615,
+          "p95": 1.0
+        },
+        "weight": {
+          "count": 347100,
+          "missing_count": 0,
+          "minimum": 1.6,
+          "maximum": 1.6,
+          "mean": 1.6,
+          "median": 1.6,
+          "standard_deviation": 0.0,
+          "p95": 1.6
+        }
+      },
+      "formation": {
+        "magnitude": {
+          "count": 347100,
+          "missing_count": 0,
+          "minimum": 0.0,
+          "maximum": 13.457391888177291,
+          "mean": 3.3075696018211027,
+          "median": 2.7197805976846863,
+          "standard_deviation": 2.93541456311182,
+          "p95": 8.806311660985434
+        },
+        "weight": {
+          "count": 347100,
+          "missing_count": 0,
+          "minimum": 0.9,
+          "maximum": 0.9,
+          "mean": 0.9,
+          "median": 0.9,
+          "standard_deviation": 0.0,
+          "p95": 0.9
+        }
+      },
+      "target_attraction": {
+        "magnitude": {
+          "count": 347100,
+          "missing_count": 0,
+          "minimum": 0.0,
+          "maximum": 1.0000000000000002,
+          "mean": 0.03311725727456064,
+          "median": 0.0,
+          "standard_deviation": 0.1789427409680851,
+          "p95": 0.0
+        },
+        "weight": {
+          "count": 347100,
+          "missing_count": 0,
+          "minimum": 1.0,
+          "maximum": 1.0,
+          "mean": 1.0,
+          "median": 1.0,
+          "standard_deviation": 0.0,
+          "p95": 1.0
+        }
+      },
+      "network_preservation": {
+        "magnitude": {
+          "count": 347100,
+          "missing_count": 0,
+          "minimum": 0.0,
+          "maximum": 1.0000000000000002,
+          "mean": 0.007925669835782195,
+          "median": 0.0,
+          "standard_deviation": 0.08867273308879324,
+          "p95": 0.0
+        },
+        "weight": {
+          "count": 347100,
+          "missing_count": 0,
+          "minimum": 1.1,
+          "maximum": 1.1,
+          "mean": 1.1,
+          "median": 1.1,
+          "standard_deviation": 0.0,
+          "p95": 1.1
+        }
+      },
+      "boundary_avoidance": {
+        "magnitude": {
+          "count": 347100,
+          "missing_count": 0,
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "mean": 0.04366176894266782,
+          "median": 0.0,
+          "standard_deviation": 0.2043414272130468,
+          "p95": 0.0
+        },
+        "weight": {
+          "count": 347100,
+          "missing_count": 0,
+          "minimum": 1.4,
+          "maximum": 1.4,
+          "mean": 1.4,
+          "median": 1.4,
+          "standard_deviation": 0.0,
+          "p95": 1.4
+        }
+      }
+    }
+  },
+  "separation_statistics": {
+    "minimum_neighbor_distance": {
+      "count": 347100,
+      "missing_count": 0,
+      "minimum": 0.00025332902642859765,
+      "maximum": 229.85626193567663,
+      "mean": 28.084672729825556,
+      "median": 18.315116053509584,
+      "standard_deviation": 25.48675844446257,
+      "p95": 80.37990314979716
+    },
+    "distance_lt_35": 245348,
+    "distance_lt_10": 103939,
+    "distance_lt_5": 22961,
+    "distance_lt_1": 5612
+  },
+  "formation_statistics": {
+    "formation_error": {
+      "count": 347100,
+      "missing_count": 0,
+      "minimum": -42.0,
+      "maximum": 565.2104593034462,
+      "mean": 135.78585100171773,
+      "median": 114.23078510275683,
+      "standard_deviation": 126.73844170305692,
+      "p95": 369.8650897613883
+    }
+  },
+  "boundary_and_risk_statistics": {
+    "boundary_risk": {
+      "count": 347100,
+      "missing_count": 0,
+      "minimum": 0.0,
+      "maximum": 0.998162501791089,
+      "mean": 0.01682867470193415,
+      "median": 0.0,
+      "standard_deviation": 0.09565840647651255,
+      "p95": 0.0
+    },
+    "connectivity_risk": {
+      "count": 347100,
+      "missing_count": 0,
+      "minimum": 0.0,
+      "maximum": 0.9154688494639719,
+      "mean": 0.0011009702271176014,
+      "median": 0.0,
+      "standard_deviation": 0.017717208803251918,
+      "p95": 0.0
+    }
+  },
+  "network_statistics": {
+    "recovery_links": {
+      "count": 11570,
+      "missing_count": 0,
+      "minimum": 0.0,
+      "maximum": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "standard_deviation": 0.0,
+      "p95": 0.0
+    },
+    "strong_links": {
+      "count": 11570,
+      "missing_count": 0,
+      "minimum": 16.0,
+      "maximum": 363.0,
+      "mean": 159.8925669835782,
+      "median": 180.0,
+      "standard_deviation": 116.0360483510175,
+      "p95": 312.0
+    },
+    "weak_links": {
+      "count": 11570,
+      "missing_count": 0,
+      "minimum": 39.0,
+      "maximum": 227.0,
+      "mean": 125.31469317199654,
+      "median": 128.0,
+      "standard_deviation": 42.14995168624808,
+      "p95": 192.0
+    },
+    "failed_links": {
+      "count": 11570,
+      "missing_count": 0,
+      "minimum": 0.0,
+      "maximum": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "standard_deviation": 0.0,
+      "p95": 0.0
+    },
+    "recovery_routes": {
+      "count": 11570,
+      "missing_count": 0,
+      "minimum": 0.0,
+      "maximum": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "standard_deviation": 0.0,
+      "p95": 0.0
+    },
+    "communication_range": {
+      "count": 11570,
+      "missing_count": 0,
+      "minimum": 150.0,
+      "maximum": 150.0,
+      "mean": 150.0,
+      "median": 150.0,
+      "standard_deviation": 0.0,
+      "p95": 150.0
+    }
+  },
+  "mission_completion": {
+    "completed_missions": 100,
+    "incomplete_missions": 0,
+    "failed_or_malformed_missions": 0
+  },
+  "data_quality": {
+    "malformed_records": 0,
+    "nonfinite_numeric_values": 0,
+    "missing_required_behavior_records": 0,
+    "incorrect_drone_cardinality_records": 0,
+    "duplicate_mission_ids": 0
+  }
+}

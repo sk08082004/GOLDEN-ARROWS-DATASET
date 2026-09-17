@@ -1,0 +1,33 @@
+cff-version: 1.2.0
+message: "If you use this dataset, please cite it using the information provided in this file."
+
+title: "Golden Arrows Dataset V3.0"
+
+type: dataset
+
+authors:
+  - family-names: "Kumar"
+    given-names: "Sunny"
+    email: "sk08082004@gmail.com"
+    orcid: "https://orcid.org/0009-0007-1915-7998"
+
+abstract: "Golden Arrows Dataset V3.0 is a simulation-generated multi-drone swarm transition dataset designed for research in swarm intelligence, autonomous multi-agent systems, swarm behavior, network-aware coordination, mission intelligence, machine learning, and reinforcement learning."
+
+version: "3.0"
+
+date-released: "2026-09-17"
+
+license: "CC-BY-4.0"
+
+keywords:
+  - "multi-drone swarm"
+  - "swarm intelligence"
+  - "multi-agent systems"
+  - "autonomous systems"
+  - "swarm behavior"
+  - "swarm coordination"
+  - "network-aware coordination"
+  - "machine learning"
+  - "reinforcement learning"
+  - "drone simulation"
+  - "transition dataset"
