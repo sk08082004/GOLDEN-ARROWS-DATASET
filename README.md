@@ -157,3 +157,12 @@ The reports state that Dataset V3 source files and the frozen Dataset V2.2
 baseline were not modified during analysis and preparation. The metadata
 records the collection configuration, including the fixed collection seed
 `20260916`, `dt = 0.5`, and `max_steps = 1000`.
+
+
+## Links to dataset 
+
+[Clickable Text](https://www.kaggle.com/datasets/sk08082004/simulation-generated-swarm-transition-dataset)
+
+[Clickable Text](https://zenodo.org/records/22816408)
+
+
