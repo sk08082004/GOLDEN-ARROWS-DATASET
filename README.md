@@ -161,8 +161,8 @@ records the collection configuration, including the fixed collection seed
 
 ## Links to dataset 
 
-[Clickable Text](https://www.kaggle.com/datasets/sk08082004/simulation-generated-swarm-transition-dataset)
+[Kaggle](https://www.kaggle.com/datasets/sk08082004/simulation-generated-swarm-transition-dataset)
 
-[Clickable Text](https://zenodo.org/records/22816408)
+[Zenodo](https://zenodo.org/records/22816408)
 
 
