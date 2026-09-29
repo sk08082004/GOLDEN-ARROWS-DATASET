@@ -1,0 +1,91 @@
+{
+  "metadata": {
+    "dataset": "Golden Arrows Dataset V3.1",
+    "schema_version": "golden_arrows_v3_rich_transition_1.0",
+    "statistics_source": "data/processed/transitions",
+    "statistics_scope": "Golden Arrows Dataset V3.1",
+    "calculation_note": "This file records the independently verified V3.1 summary values. Drone-transition records are derived as transitions multiplied by 30 drones and are not independent samples."
+  },
+  "dataset": {
+    "total_missions": 1000,
+    "total_transitions": 113954,
+    "total_drone_transition_records": 3418620,
+    "drones_per_transition": 30,
+    "completed_missions": 1000,
+    "mission_types": [
+      "PATROL",
+      "SURVEILLANCE",
+      "SEARCH",
+      "RECOVERY"
+    ],
+    "missions_per_mission_type": {
+      "PATROL": 250,
+      "SURVEILLANCE": 250,
+      "SEARCH": 250,
+      "RECOVERY": 250
+    },
+    "schema_version": "golden_arrows_v3_rich_transition_1.0",
+    "policy_type": "SCRIPTED_MISSION_CONTROLLER+ADVANCED_SWARM_BEHAVIOR",
+    "advanced_behavior_enabled": true,
+    "advanced_behavior_coverage": {
+      "total_transitions": 113954,
+      "transitions_with_advanced_behavior": 113954,
+      "transitions_without_advanced_behavior": 0
+    },
+    "behavior_mode": "BOUNDED_CORRECTION_ON_MISSION_MOTION"
+  },
+  "collection": {
+    "time_step": 0.5,
+    "max_steps": 1000,
+    "collection_seed": 20260916,
+    "mission_seed_range": {
+      "minimum": 20260917,
+      "maximum": 20261916
+    },
+    "dataset_baseline": "V2.2_FROZEN"
+  },
+  "mission_statistics": {
+    "total_missions": 1000,
+    "transitions_by_mission_type": {
+      "PATROL": 63694,
+      "SURVEILLANCE": 22036,
+      "SEARCH": 11856,
+      "RECOVERY": 16368
+    },
+    "transitions_per_mission": {
+      "minimum": 9,
+      "maximum": 373,
+      "mean": 113.95
+    }
+  },
+  "transition_statistics": {
+    "total_transitions": 113954,
+    "transitions_by_mission_type": {
+      "PATROL": 63694,
+      "SURVEILLANCE": 22036,
+      "SEARCH": 11856,
+      "RECOVERY": 16368
+    },
+    "drone_transition_record_calculation": "113954 transitions x 30 drones",
+    "total_drone_transition_records": 3418620,
+    "mission_status": {
+      "completed": 1000,
+      "incomplete": 0
+    }
+  },
+  "validation": {
+    "raw_mission_files": 1000,
+    "processed_transition_files": 1000,
+    "raw_processed_filenames_match_one_to_one": true,
+    "mission_distribution_balanced": true,
+    "drones_per_transition": 30,
+    "schema_version_consistent": true,
+    "advanced_behavior_applied_to_all_transitions": true,
+    "nan_values": 0,
+    "inf_values": 0,
+    "duplicate_tick_missions": 0,
+    "malformed_or_structural_errors": 0,
+    "mission_level_structural_integrity": "PASS",
+    "publication_structure": "PASS"
+  }
+}

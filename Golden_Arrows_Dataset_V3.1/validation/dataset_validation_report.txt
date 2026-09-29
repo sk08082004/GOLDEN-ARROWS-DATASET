@@ -1,0 +1,151 @@
+Golden Arrows Dataset V3.1
+Validation Report
+
+Dataset: Golden Arrows Dataset V3.1
+Schema: golden_arrows_v3_rich_transition_1.0
+Validation scope: V3.1 publication dataset
+
+This report records the independently verified V3.1 validation results for
+the published raw missions, processed transitions, and package structure.
+Validation covers file correspondence, mission distribution, transition and
+drone cardinality, schema and behavior consistency, numerical integrity, and
+mission-level structural integrity.
+
+No model-performance validation is included. Structural validation does not
+establish real-world flight validity, safety, or operational effectiveness.
+
+VALIDATION SUMMARY
+
+Check                                      Result
+---------------------------------------------------
+Raw mission files                         PASS (1,000)
+Processed transition files                PASS (1,000)
+Raw/processed filename correspondence     PASS (1,000/1,000)
+Mission count and distribution            PASS (250 per type)
+Transition count                          PASS (113,954)
+Drone cardinality                         PASS (30 per transition)
+Drone-transition record count             PASS (3,418,620 derived records)
+Schema consistency                        PASS
+Advanced Swarm Behavior coverage          PASS
+Policy and behavior mode                  PASS
+Numerical integrity                       PASS
+Mission completion                        PASS (1,000/1,000)
+Mission-level structural integrity        PASS
+Duplicate tick missions                   PASS (0)
+Malformed/structural errors                PASS (0)
+Publication structure                     PASS
+
+OVERALL VALIDATION RESULT: PASS
+
+1. FILE INTEGRITY AND CORRESPONDENCE
+
+- Raw mission JSON files: 1,000
+- Processed transition JSONL files: 1,000
+- Raw and processed filenames: exact one-to-one match
+- Malformed or structural errors: 0
+
+Result: PASS
+
+2. MISSION COUNT AND DISTRIBUTION
+
+- Total missions: 1,000
+- PATROL: 250
+- SURVEILLANCE: 250
+- SEARCH: 250
+- RECOVERY: 250
+
+Result: PASS
+
+3. TRANSITION COUNTS
+
+- PATROL transitions: 63,694
+- SURVEILLANCE transitions: 22,036
+- SEARCH transitions: 11,856
+- RECOVERY transitions: 16,368
+- Total transitions: 113,954
+- Minimum transitions per mission: 9
+- Maximum transitions per mission: 373
+- Average transitions per mission: 113.95 (reported to two decimal places)
+
+The mission counts above are distinct from the transition counts.
+
+Result: PASS
+
+4. DRONE CARDINALITY
+
+- Drones per transition: 30
+- Drone-transition records: 113,954 x 30 = 3,418,620
+
+The drone-transition record total is derived from transition count multiplied
+by drones per transition. These records are nested within transitions and
+missions and must not be treated as independent samples.
+
+Result: PASS
+
+5. SCHEMA CONSISTENCY
+
+- Schema version: golden_arrows_v3_rich_transition_1.0
+- Schema version is consistent across the processed records.
+- The V3.1 package retains the V3 rich-transition schema; no new schema name
+  is introduced.
+
+Result: PASS
+
+6. ADVANCED SWARM BEHAVIOR
+
+- Advanced behavior applied: true for every transition
+- Behavior mode: BOUNDED_CORRECTION_ON_MISSION_MOTION
+- Documented components: cohesion, alignment, separation, formation,
+  target attraction, network preservation, and boundary avoidance
+
+Result: PASS
+
+7. POLICY REPRESENTATION
+
+- Policy type: SCRIPTED_MISSION_CONTROLLER+ADVANCED_SWARM_BEHAVIOR
+- The policy type is recorded at decision.policy_type.
+
+This scripted policy representation and the recorded behavior telemetry do
+not indicate that a trained or learned policy was used.
+
+Result: PASS
+
+8. NUMERICAL AND STRUCTURAL INTEGRITY
+
+- NaN values: 0
+- Inf values: 0
+- Duplicate tick missions: 0
+- Malformed/structural errors: 0
+- Mission-level structural integrity: PASS
+
+Result: PASS
+
+9. MISSION COMPLETION
+
+- Completed missions: 1,000 / 1,000
+
+Result: PASS
+
+10. METADATA AND PACKAGE STRUCTURE
+
+The publication structure was independently checked. The package includes
+mission metadata, raw mission data, processed transition data, examples,
+schema materials, validation materials, and the publication documentation.
+
+Result: PASS
+
+11. INTERPRETATION AND LIMITATIONS
+
+This report verifies the stated structure and consistency of the V3.1
+simulation dataset. It is not a model-performance evaluation, a real-world
+flight validation, safety certification, or evidence of operational
+effectiveness. The 3,418,620 drone-transition records are not independent
+samples.
+
+12. FINAL RESULT
+
+OVERALL VALIDATION RESULT: PASS
+
+The independently verified Golden Arrows Dataset V3.1 results support the
+file, mission, transition, drone-cardinality, schema, behavior, numerical,
+and structural checks documented above.
