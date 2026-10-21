@@ -9,6 +9,9 @@ remain the source of truth. The scripts read source data without modifying
 it; any files they generate are local derivatives and are not part of this
 publication package.
 
+The examples require Python 3.9 or newer and use only the Python standard
+library; no third-party packages are required.
+
 The examples demonstrate specific feature choices, not mandatory
 preprocessing, causal validity, or model performance. Researchers should
 review temporal semantics and adapt feature definitions to their research
@@ -60,9 +63,48 @@ separately. The script excludes `actual_movement`, `action`, `decision`,
 telemetry is distinct from actual movement; it is not an RL action or an
 output from a trained model.
 
-## 3. Source Data
+### `prepare_behavior_aware_streaming.py`
 
-The scripts read processed JSONL files from:
+This is an optional, memory-efficient alternative to
+`prepare_behavior_aware.py`; it preserves the same 55 model input features,
+two targets (`next_position_x` and `next_position_y`), metadata, excluded
+fields, split seed, mission-level split, and output filenames. It does not
+replace the original behavior-aware script.
+
+The streaming implementation stages records in a temporary, disk-backed
+SQLite database and writes results to temporary output staging before
+publishing them. It therefore uses temporary disk space; ensure sufficient
+space is available. The requested output directory must not already exist.
+Choose a fresh output path for each run.
+
+Ticks must be integers within the signed 64-bit range, inclusive:
+`-9223372036854775808` through `9223372036854775807`. Numeric feature and
+target values are validated during ingestion; this script does not perform a
+separate scan of the generated CSV files.
+
+## 3. Source Data and Extraction
+
+The Zenodo distribution supplies the dataset in eight independent archives:
+`data_metadata.zip`, `data_raw_missions_001.zip`,
+`data_raw_missions_002.zip`, `data_raw_missions_003.zip`,
+`data_raw_missions_004.zip`, `data_processed_transitions_001.zip`,
+`data_processed_transitions_002.zip`, and
+`data_processed_transitions_003.zip`. Download all eight and extract each
+into the same new, empty destination directory before running either example.
+The archives preserve the `data/` prefix; extracting them together creates
+the source tree below. No `.z01` or `.z02` companion files are needed.
+
+```text
+<extraction-directory>/data/
+├── metadata.csv
+├── raw/missions/                 # 1,000 raw mission JSON files
+└── processed/transitions/        # 1,000 processed transition JSONL files
+```
+
+The temporary failed-upload artifact `data/processed/transitions.zip` is
+excluded from the release. Do not use it as source data.
+
+All preprocessing scripts read processed JSONL files from the extracted tree:
 
 ```text
 ../../data/processed/transitions/*.jsonl
@@ -73,9 +115,13 @@ RECOVERY. It contains 113,954 transitions, each with 30 drones, for
 3,418,620 derived drone-transition records. That derived record count is not
 a count of independent samples.
 
-The scripts validate V3.1's 1,000 source files, mission and transition
-structure, 30-drone cardinality, uniqueness, finite numeric inputs, and
-behavior-field coverage where applicable. The retained schema version is
+The scripts require exactly 1,000 processed JSONL mission files and validate
+mission and transition structure, the expected mission distribution and
+transition counts, 30-drone cardinality, uniqueness, and finite required
+numeric inputs. The behavior-aware examples also check complete behavior
+telemetry and all seven behavior components. The streaming implementation
+validates numeric feature and target values during ingestion and does not run
+a separate output-CSV scan. The retained schema version is
 `golden_arrows_v3_rich_transition_1.0`.
 
 ## 4. Temporal Semantics
@@ -115,20 +161,31 @@ From `examples/preprocessing/`, inspect supported options with:
 ```powershell
 python .\prepare_state_only.py --help
 python .\prepare_behavior_aware.py --help
+python .\prepare_behavior_aware_streaming.py --help
 ```
 
-To run either example, specify a local output directory outside the
-publication package. For example:
+After extracting all eight archives, set `--source-root` to the extracted
+`data` directory (the directory containing `raw/`, `processed/`, and
+`metadata.csv`). Specify an output directory outside the publication package.
+For example, replace the placeholder with the path you used for extraction:
 
 ```powershell
-python .\prepare_state_only.py --output-root "$env:TEMP\golden_arrows_v3_1_state_only"
-python .\prepare_behavior_aware.py --output-root "$env:TEMP\golden_arrows_v3_1_behavior_aware"
+$source = "C:\path\to\extracted\dataset\data"
+python .\prepare_state_only.py --source-root $source --output-root "$env:TEMP\golden_arrows_v3_1_state_only"
+python .\prepare_behavior_aware.py --source-root $source --output-root "$env:TEMP\golden_arrows_v3_1_behavior_aware"
+python .\prepare_behavior_aware_streaming.py --source-root $source --output-root "$env:TEMP\golden_arrows_v3_1_behavior_aware_streaming"
 ```
 
-Both scripts accept `--source-root`, `--output-root`, and `--split-seed`.
-The default source root is the package's `data` directory. By default,
+All three scripts accept `--source-root`, `--output-root`, and `--split-seed`.
+Their default source root is the package's `data` directory. If, as
+recommended, you extracted the archives into a separate new empty directory,
+pass that extraction's `data` directory explicitly as shown. By default,
 generated outputs are written under the system temporary directory, not into
-the publication package. Do not copy generated ML outputs into this release.
+the publication package. All examples reject output directories inside the
+package. In addition, the streaming script refuses an output directory that
+already exists. Its SQLite database is staged separately in a temporary
+directory, and its output staging also requires temporary disk space. Do not
+copy generated ML outputs into this release.
 
 ## 7. Outputs
 

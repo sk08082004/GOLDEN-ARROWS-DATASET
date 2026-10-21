@@ -15,11 +15,11 @@ abstract: "Golden Arrows Dataset V3.1 is a simulation-generated multi-drone swar
 
 version: "3.1"
 
-date-released: "2026-09-29"
+date-released: "2026-10-21"
 
 license: "CC-BY-4.0"
 
-doi: "10.5281/zenodo.23030808"
+doi: "10.5281/zenodo.23500678"
 
 repository-code: "https://github.com/sk08082004/GOLDEN-ARROWS-DATASET"
 

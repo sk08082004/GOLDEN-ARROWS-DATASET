@@ -1,2 +1,23 @@
-# Exclude the dataset data section from version control.
-/data/
+
+# Python virtual environments and caches
+.venv/
+__pycache__/
+*.py[cod]
+
+# Local environment and secrets
+.env
+.env.*
+
+# Generated ML outputs
+train.csv
+validation.csv
+test.csv
+
+# Local preprocessing output directories
+output_state_only/
+output_behavior_aware/
+
+
+# V3.1 dataset files are distributed through Zenodo
+/Golden_Arrows_Dataset_V3.1/data/
+/Golden_Arrows_Dataset_V3.1/*.zip

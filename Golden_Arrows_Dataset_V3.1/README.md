@@ -58,26 +58,97 @@ The policy representation and behavior mode above describe the logged
 simulation configuration; they do not indicate that a learned policy was
 used.
 
-## Data organization
+## Download and extract the data
+
+The Zenodo upload provides the dataset payload as eight independent ZIP
+archives at the release root:
+
+- `data_metadata.zip`
+- `data_raw_missions_001.zip`
+- `data_raw_missions_002.zip`
+- `data_raw_missions_003.zip`
+- `data_raw_missions_004.zip`
+- `data_processed_transitions_001.zip`
+- `data_processed_transitions_002.zip`
+- `data_processed_transitions_003.zip`
+
+The metadata CSV is in its own archive, the raw mission JSON files are split
+across four archives, and the processed transition JSONL files are split
+across three. These are independent ZIP files, not multivolume segments; no
+`.z01` or `.z02` companion files are required. Download all eight archives
+and extract each into the same new, empty destination directory. Each archive
+preserves the `data/` prefix, so the resulting layout is:
 
 ```text
-Golden_Arrows_Dataset_V3.1/
-├── data/
-│   ├── metadata.csv
-│   ├── raw/
-│   │   └── missions/            # 1,000 raw mission JSON files
-│   └── processed/
-│       └── transitions/         # 1,000 processed transition JSONL files
-├── examples/
-├── schema/
-├── validation/
-├── CITATION.cff
-├── CHANGELOG.md
-├── dataset_card.md
-├── dataset_description.pdf
-├── LICENSE
-└── README.md
+<extraction-directory>/
+└── data/
+    ├── metadata.csv
+    ├── raw/
+    │   └── missions/            # 1,000 raw mission JSON files
+    └── processed/
+        └── transitions/         # 1,000 processed transition JSONL files
 ```
+
+Extracting fewer than all eight archives yields an incomplete dataset. The
+temporary failed-upload artifact `data/processed/transitions.zip` is excluded
+from the release and is not one of the published archives. The upload also
+includes this README, the dataset card and description, changelog, citation
+metadata, license, examples, schemas, and validation materials as separate
+files.
+
+## Run the optional preprocessing examples
+
+The examples require Python 3.9 or newer and use only the Python standard
+library; no third-party packages are required. Download all eight archives
+and extract them as described above before running an example. From the
+release package root, set `--source-root` to the `data` directory created by
+extraction:
+
+```powershell
+$source = "C:\path\to\extracted\dataset\data"
+python .\examples\preprocessing\prepare_state_only.py --source-root $source --output-root "$env:TEMP\golden_arrows_v3_1_state_only"
+python .\examples\preprocessing\prepare_behavior_aware.py --source-root $source --output-root "$env:TEMP\golden_arrows_v3_1_behavior_aware"
+python .\examples\preprocessing\prepare_behavior_aware_streaming.py --source-root $source --output-root "$env:TEMP\golden_arrows_v3_1_behavior_aware_streaming"
+```
+
+The behavior-aware streaming command is an optional, memory-efficient
+alternative to `prepare_behavior_aware.py`; it does not replace the original.
+To inspect its options, run:
+
+```powershell
+python .\examples\preprocessing\prepare_behavior_aware_streaming.py --help
+```
+
+All three examples require exactly 1,000 processed JSONL mission files and
+check the documented mission distribution, transition counts, 30-drone
+cardinality, uniqueness, and finite required values. The behavior-aware
+examples also check behavior telemetry and component coverage. Both
+behavior-aware implementations retain the same 55 model features and two
+next-position targets.
+
+The streaming implementation stages records in a temporary, disk-backed
+SQLite database and uses temporary output staging before publishing results.
+It requires sufficient temporary disk space and refuses to run if the
+requested output directory already exists; choose a fresh destination for
+each run. Its input ticks must be integers within the signed 64-bit range
+(-9223372036854775808 through 9223372036854775807). Numeric feature and
+target values are validated during ingestion; the streaming script does not
+perform a separate output-CSV scan.
+
+Each run creates `train.csv`, `validation.csv`, `test.csv`,
+`feature_schema.json`, and `preparation_report.txt` in its output directory.
+Outputs default to a system temporary directory and are not written into the
+release package; the examples also reject output paths inside that package.
+
+The examples use a stratified 68%/16%/16% mission-level split (680/160/160
+missions overall, 170/40/40 per mission type); they do not provide generated
+split files in this release. Drone-transition records are nested within
+transitions and missions, not independent samples. Review the timing of
+`state_after` fields before using features for prediction or causal analysis;
+the examples do not establish causal validity, learned-policy performance,
+or real-world flight performance. See
+[the preprocessing guide](examples/preprocessing/README.md) for feature
+details and further limitations.
 
 Each raw mission JSON contains collection and mission information and its
 transitions. Processed JSONL records use the schema version
@@ -124,10 +195,18 @@ this publication package.
 
 ## Citation, version, and license
 
-Please cite **Golden Arrows Dataset V3.1** and use the author and version
-information in [CITATION.cff](CITATION.cff). A DOI for V3.1 has not been
-assigned in this package; the V3.0 DOI identifies a different release and
-must not be used for V3.1.
+Please cite **Golden Arrows Dataset V3.1** using the author and version
+information in [CITATION.cff](CITATION.cff). The citation file and dataset
+description list DOI `10.5281/zenodo.23030808`; however, the DOI resolver
+returned HTTP 404 when checked on 2026-10-20, so its active publication status
+is unconfirmed. Confirm the record with the maintainer before treating the
+DOI as a live publication link. The V3.0 DOI identifies a different release
+and must not be used for V3.1.
+
+The CFF lists `date-released: 2026-10-02`, while the changelog says the V3.1
+release date is to be assigned at publication. This conflict is unresolved;
+confirm the authoritative release date with the maintainer. Neither value
+has been changed here.
 
 Version 3.1 expands the V3.0 release from 100 to 1,000 missions and is a
 separate dataset release, not a renaming of V3.0. The dataset is provided

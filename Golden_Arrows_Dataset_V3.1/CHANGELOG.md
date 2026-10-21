@@ -44,3 +44,14 @@ Release date: To be assigned at publication
 - Policy representation `SCRIPTED_MISSION_CONTROLLER+ADVANCED_SWARM_BEHAVIOR` verified.
 - Behavior mode `BOUNDED_CORRECTION_ON_MISSION_MOTION` verified.
 - Independent structural, integrity, and publication checks passed for the V3.1 dataset package.
+
+## Distribution format update — 2026-10-20
+
+- The Zenodo distribution supplies the unchanged V3.1 data payload in eight
+  independent ZIP archives: one metadata archive, four raw-mission archives,
+  and three processed-transition archives. See `README.md` for the full
+  filenames and extraction instructions.
+- This is a packaging-only change. The underlying dataset content, scientific
+  results, schema, and validation claims were not regenerated or changed.
+- The temporary failed-upload artifact `data/processed/transitions.zip` is
+  excluded from the published archives.
